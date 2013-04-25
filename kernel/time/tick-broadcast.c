@@ -18,6 +18,11 @@
 #include <linux/percpu.h>
 #include <linux/profile.h>
 #include <linux/sched.h>
+<<<<<<< HEAD
+=======
+#include <linux/smp.h>
+#include <linux/module.h>
+>>>>>>> 9acd6ae... clockevents: Add module refcount
 
 #include "tick-internal.h"
 
@@ -83,7 +88,12 @@ void tick_install_broadcast_device(struct clock_event_device *dev)
 =======
 =======
 		return;
+<<<<<<< HEAD
 >>>>>>> ee652c9... clockevents: Get rid of the notifier chain
+=======
+	if (!try_module_get(dev->owner))
+		return;
+>>>>>>> 9acd6ae... clockevents: Add module refcount
 
 	clockevents_exchange_device(tick_broadcast_device.evtdev, dev);
 	if (cur)
