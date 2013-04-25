@@ -64,7 +64,7 @@ static void tick_broadcast_start_periodic(struct clock_event_device *bc)
 /*
  * Check, if the device can be utilized as broadcast device:
  */
-int tick_check_broadcast_device(struct clock_event_device *dev)
+void tick_install_broadcast_device(struct clock_event_device *dev)
 {
 <<<<<<< HEAD
 =======
@@ -75,11 +75,15 @@ int tick_check_broadcast_device(struct clock_event_device *dev)
 	    (tick_broadcast_device.evtdev &&
 	     tick_broadcast_device.evtdev->rating >= dev->rating) ||
 	     (dev->features & CLOCK_EVT_FEAT_C3STOP))
+<<<<<<< HEAD
 		return 0;
 <<<<<<< HEAD
 
 	clockevents_exchange_device(tick_broadcast_device.evtdev, dev);
 =======
+=======
+		return;
+>>>>>>> ee652c9... clockevents: Get rid of the notifier chain
 
 	clockevents_exchange_device(tick_broadcast_device.evtdev, dev);
 	if (cur)
@@ -98,7 +102,6 @@ int tick_check_broadcast_device(struct clock_event_device *dev)
 	 */
 	if (dev->features & CLOCK_EVT_FEAT_ONESHOT)
 		tick_clock_notify();
-	return 1;
 }
 
 /*
