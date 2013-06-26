@@ -584,6 +584,13 @@ again:
 
 >>>>>>> 2db766a... tick: Cure broadcast false positive pending bit warning
 	/*
+	 * Sanity check. Catch the case where we try to broadcast to
+	 * offline cpus.
+	 */
+	if (WARN_ON_ONCE(!cpumask_subset(tmpmask, cpu_online_mask)))
+		cpumask_and(tmpmask, tmpmask, cpu_online_mask);
+
+	/*
 	 * Wakeup the cpus which have an expired event.
 	 */
 	tick_do_broadcast(to_cpumask(tmpmask));
@@ -777,10 +784,16 @@ void tick_shutdown_broadcast_oneshot(unsigned int *cpup)
 	raw_spin_lock_irqsave(&tick_broadcast_lock, flags);
 
 	/*
-	 * Clear the broadcast mask flag for the dead cpu, but do not
-	 * stop the broadcast device!
+	 * Clear the broadcast masks for the dead cpu, but do not stop
+	 * the broadcast device!
 	 */
+<<<<<<< HEAD
 	cpumask_clear_cpu(cpu, tick_get_broadcast_oneshot_mask());
+=======
+	cpumask_clear_cpu(cpu, tick_broadcast_oneshot_mask);
+	cpumask_clear_cpu(cpu, tick_broadcast_pending_mask);
+	cpumask_clear_cpu(cpu, tick_broadcast_force_mask);
+>>>>>>> ec4c661... tick: Make oneshot broadcast robust vs. CPU offlining
 
 	raw_spin_unlock_irqrestore(&tick_broadcast_lock, flags);
 }
