@@ -573,7 +573,12 @@ void tick_broadcast_oneshot_control(unsigned long reason)
  */
 static void tick_broadcast_clear_oneshot(int cpu)
 {
+<<<<<<< HEAD
 	cpumask_clear_cpu(cpu, tick_get_broadcast_oneshot_mask());
+=======
+	cpumask_clear_cpu(cpu, tick_broadcast_oneshot_mask);
+	cpumask_clear_cpu(cpu, tick_broadcast_pending_mask);
+>>>>>>> 97ea808... tick: Clear broadcast pending bit when switching to oneshot
 }
 
 static void tick_broadcast_init_next_event(struct cpumask *mask,
