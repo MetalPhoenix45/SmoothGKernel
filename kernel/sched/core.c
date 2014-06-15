@@ -2233,6 +2233,7 @@ unsigned long avg_nr_running(void)
 	return sum;
 }
 EXPORT_SYMBOL(avg_nr_running);
+<<<<<<< HEAD
 
 unsigned long avg_cpu_nr_running(unsigned int cpu)
 {
@@ -2257,6 +2258,8 @@ unsigned long avg_cpu_nr_running(unsigned int cpu)
 	return ave_nr_running;
 }
 EXPORT_SYMBOL(avg_cpu_nr_running);
+=======
+>>>>>>> 0eb639f... intelli_plug: refactor stats calculation code to be less intrusive
 #endif
 
 /*
