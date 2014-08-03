@@ -85,23 +85,6 @@
 				qcom,bus-freq = <1>;
 				qcom,io-fraction = <100>;
 			};
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-                        qcom,gpu-pwrlevel@4 {
-                                reg = <4>;
-=======
->>>>>>> parent of 4202db1... fix underclock GPU
-                                qcom,gpu-freq = <100000000>;
-=======
-                        qcom,gpu-freq = <100000000>;
->>>>>>> parent of 307a5b5... fixed GPU overclock
-				qcom,bus-freq = <1>;
-				qcom,io-fraction = <100>;
-			};
-=======
->>>>>>> parent of 764e16e... GPU: Underclock to 100MHz
 
 			qcom,gpu-pwrlevel@4 {
 				reg = <4>;
