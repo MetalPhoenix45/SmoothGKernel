@@ -52,8 +52,13 @@ static struct delayed_work intelli_plug_boost;
 static struct workqueue_struct *intelliplug_wq;
 static struct workqueue_struct *intelliplug_boost_wq;
 
+<<<<<<< HEAD
 static unsigned int intelli_plug_active = 0;
 module_param(intelli_plug_active, uint, 0664);
+=======
+static unsigned int intelli_plug_active = 1;
+module_param(intelli_plug_active, uint, 0644);
+>>>>>>> 34b56b1... Disable MPDecision and enable Intelli_Plug
 
 static unsigned int touch_boost_active = 1;
 module_param(touch_boost_active, uint, 0664);
