@@ -33,8 +33,13 @@
 //#define DEBUG_INTELLI_PLUG
 #undef DEBUG_INTELLI_PLUG
 
+<<<<<<< HEAD
 #define INTELLI_PLUG_MAJOR_VERSION	4
 #define INTELLI_PLUG_MINOR_VERSION	0
+=======
+#define INTELLI_PLUG_MAJOR_VERSION	3
+#define INTELLI_PLUG_MINOR_VERSION	9
+>>>>>>> 058438fe... intelli_plug: add performance boost option
 
 #define DEF_SAMPLING_MS			(268)
 
@@ -398,6 +403,7 @@ void __ref intelli_plug_perf_boost(bool on)
 	}
 }
 
+<<<<<<< HEAD
 /* sysfs interface for performance boost (BEGIN) */
 static ssize_t intelli_plug_perf_boost_store(struct kobject *kobj,
 			struct kobj_attribute *attr, const char *buf,
@@ -437,6 +443,8 @@ static struct attribute_group intelli_plug_perf_boost_attr_group = {
 static struct kobject *intelli_plug_perf_boost_kobj;
 /* sysfs interface for performance boost (END) */
 
+=======
+>>>>>>> 058438fe... intelli_plug: add performance boost option
 #ifdef CONFIG_POWERSUSPEND
 static void intelli_plug_suspend(struct power_suspend *handler)
 #else
