@@ -90,7 +90,6 @@ config DEVFREQ_GOV_MSM_CPUBW_HWMON
 	  with existing profiling tools.  This governor is unlikely to be
 	  useful for other devices.
 
-<<<<<<< HEAD
 config DEVFREQ_GOV_CONSERVATIVE
 	tristate "Conservative"
 	depends on MSM_KGSL
@@ -104,9 +103,6 @@ config SIMPLE_GPU_ALGORITHM
 	depends on DEVFREQ_GOV_MSM_ADRENO_TZ
 	help
 	  Simple user configurable GPU controlling algorithm
-=======
-comment "DEVFREQ Drivers"
->>>>>>> parent of 7886354... Simple GPU Algorithm: Initial coding for devfreq based Adreno Drivers
 
 config ARM_EXYNOS4_BUS_DEVFREQ
 	bool "ARM Exynos4210/4212/4412 Memory Bus DEVFREQ Driver"
