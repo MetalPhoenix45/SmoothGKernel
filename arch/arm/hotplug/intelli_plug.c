@@ -34,12 +34,17 @@
 #undef DEBUG_INTELLI_PLUG
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #define INTELLI_PLUG_MAJOR_VERSION	4
 #define INTELLI_PLUG_MINOR_VERSION	0
 =======
 #define INTELLI_PLUG_MAJOR_VERSION	3
 #define INTELLI_PLUG_MINOR_VERSION	9
 >>>>>>> 058438fe... intelli_plug: add performance boost option
+=======
+#define INTELLI_PLUG_MAJOR_VERSION	4
+#define INTELLI_PLUG_MINOR_VERSION	0
+>>>>>>> 3734fca... intelli_plug: add perf_boost sysfs entry and clean up permissions (thanks to @faux123) Also bump version to 4.0
 
 #define DEF_SAMPLING_MS			(268)
 
@@ -58,12 +63,17 @@ static struct workqueue_struct *intelliplug_wq;
 static struct workqueue_struct *intelliplug_boost_wq;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 static unsigned int intelli_plug_active = 0;
 module_param(intelli_plug_active, uint, 0664);
 =======
 static unsigned int intelli_plug_active = 1;
 module_param(intelli_plug_active, uint, 0644);
 >>>>>>> 34b56b1... Disable MPDecision and enable Intelli_Plug
+=======
+static unsigned int intelli_plug_active = 0;
+module_param(intelli_plug_active, uint, 0664);
+>>>>>>> 3734fca... intelli_plug: add perf_boost sysfs entry and clean up permissions (thanks to @faux123) Also bump version to 4.0
 
 static unsigned int touch_boost_active = 1;
 module_param(touch_boost_active, uint, 0664);
@@ -404,6 +414,9 @@ void __ref intelli_plug_perf_boost(bool on)
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3734fca... intelli_plug: add perf_boost sysfs entry and clean up permissions (thanks to @faux123) Also bump version to 4.0
 /* sysfs interface for performance boost (BEGIN) */
 static ssize_t intelli_plug_perf_boost_store(struct kobject *kobj,
 			struct kobj_attribute *attr, const char *buf,
@@ -443,8 +456,11 @@ static struct attribute_group intelli_plug_perf_boost_attr_group = {
 static struct kobject *intelli_plug_perf_boost_kobj;
 /* sysfs interface for performance boost (END) */
 
+<<<<<<< HEAD
 =======
 >>>>>>> 058438fe... intelli_plug: add performance boost option
+=======
+>>>>>>> 3734fca... intelli_plug: add perf_boost sysfs entry and clean up permissions (thanks to @faux123) Also bump version to 4.0
 #ifdef CONFIG_POWERSUSPEND
 static void intelli_plug_suspend(struct power_suspend *handler)
 #else
