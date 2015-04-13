@@ -86,6 +86,9 @@
 				qcom,bus-freq = <1>;
 				qcom,io-fraction = <100>;
 			};
+
+                        qcom,gpu-pwrlevel@4 {
+                                reg = <4>;
                                 qcom,gpu-freq = <100000000>;
 				qcom,bus-freq = <1>;
 				qcom,io-fraction = <100>;
