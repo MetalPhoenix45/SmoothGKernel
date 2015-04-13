@@ -86,10 +86,14 @@
 				qcom,io-fraction = <100>;
 			};
 <<<<<<< HEAD
+<<<<<<< HEAD
 
                         qcom,gpu-pwrlevel@4 {
                                 reg = <4>;
                                 qcom,gpu-freq = <100000000>;
+=======
+                        qcom,gpu-freq = <100000000>;
+>>>>>>> parent of 307a5b5... fixed GPU overclock
 				qcom,bus-freq = <1>;
 				qcom,io-fraction = <100>;
 			};
