@@ -87,9 +87,12 @@
 			};
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
                         qcom,gpu-pwrlevel@4 {
                                 reg = <4>;
+=======
+>>>>>>> parent of 4202db1... fix underclock GPU
                                 qcom,gpu-freq = <100000000>;
 =======
                         qcom,gpu-freq = <100000000>;
