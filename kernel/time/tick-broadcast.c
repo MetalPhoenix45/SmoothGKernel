@@ -82,7 +82,6 @@ int tick_check_broadcast_device(struct clock_event_device *dev)
 =======
 
 	clockevents_exchange_device(tick_broadcast_device.evtdev, dev);
-
 	if (cur)
 		cur->event_handler = clockevents_handle_noop;
 >>>>>>> 8262cf5... v3.4.44
