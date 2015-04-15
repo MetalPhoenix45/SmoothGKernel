@@ -522,6 +522,10 @@ again:
 			next_cpu = cpu;
 		}
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 8e0e433... tick: Cure broadcast false positive pending bit warning
 	/*
 	 * Wakeup the cpus which have an expired event.
 	 */
@@ -582,6 +586,7 @@ int tick_broadcast_oneshot_control(unsigned long reason)
 	if (reason == CLOCK_EVT_NOTIFY_BROADCAST_ENTER) {
 		if (!cpumask_test_cpu(cpu, tick_get_broadcast_oneshot_mask())) {
 			cpumask_set_cpu(cpu, tick_get_broadcast_oneshot_mask());
+<<<<<<< HEAD
 		if (!cpumask_test_and_set_cpu(cpu, tick_broadcast_oneshot_mask)) {
 			WARN_ON_ONCE(cpumask_test_cpu(cpu, tick_broadcast_pending_mask));
 <<<<<<< HEAD
@@ -600,6 +605,8 @@ int tick_broadcast_oneshot_control(unsigned long reason)
 			    dev->next_event.tv64 < bc->next_event.tv64)
 =======
 >>>>>>> 2db766a... tick: Cure broadcast false positive pending bit warning
+=======
+>>>>>>> parent of 8e0e433... tick: Cure broadcast false positive pending bit warning
 			clockevents_set_mode(dev, CLOCK_EVT_MODE_SHUTDOWN);
 			if (dev->next_event.tv64 < bc->next_event.tv64)
 >>>>>>> parent of 481cfcb... tick: Introduce hrtimer based broadcast
