@@ -375,6 +375,10 @@ extern struct cpufreq_governor cpufreq_gov_conservative;
 #elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVE)
 extern struct cpufreq_governor cpufreq_gov_interactive;
 #define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_interactive)
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> parent of 176a9ec... cpufreq: Add awesome governors
 #elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_INTELLIACTIVE)
 extern struct cpufreq_governor cpufreq_gov_intelliactive;
 #define CPUFREQ_DEFAULT_GOVERNOR        (&cpufreq_gov_intelliactive)
@@ -409,6 +413,7 @@ extern struct cpufreq_governor cpufreq_gov_badass;
 =======
 >>>>>>> 5698886... cpufreq: clean up govs
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 #elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_INTELLIMM)
 extern struct cpufreq_governor cpufreq_gov_intellimm;
@@ -439,6 +444,8 @@ extern struct cpufreq_governor cpufreq_gov_intelliactive;
 >>>>>>> parent of 176a9ec... cpufreq: Add awesome governors
 =======
 >>>>>>> parent of 0d3b7af... cpufreq: clean up govs
+=======
+>>>>>>> parent of 176a9ec... cpufreq: Add awesome governors
 
 #endif
 

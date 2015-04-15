@@ -109,6 +109,10 @@ config CPU_FREQ_DEFAULT_GOV_INTERACTIVE
 	  loading your cpufreq low-level hardware driver, using the
 	  'interactive' governor for latency-sensitive workloads.
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> parent of 176a9ec... cpufreq: Add awesome governors
 config CPU_FREQ_DEFAULT_GOV_INTELLIACTIVE
 	bool "intelliactive"
 	select CPU_FREQ_GOV_INTELLIACTIVE
@@ -175,6 +179,7 @@ config CPU_FREQ_DEFAULT_GOV_BADASS
 =======
 >>>>>>> 5698886... cpufreq: clean up govs
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 config CPU_FREQ_DEFAULT_GOV_ZZMOOVE
 	  bool "zzmoove"
@@ -230,6 +235,8 @@ config CPU_FREQ_DEFAULT_GOV_INTELLIACTIVE
 >>>>>>> parent of 176a9ec... cpufreq: Add awesome governors
 =======
 >>>>>>> parent of 0d3b7af... cpufreq: clean up govs
+=======
+>>>>>>> parent of 176a9ec... cpufreq: Add awesome governors
 endchoice
 
 config CPU_FREQ_GOV_PERFORMANCE
