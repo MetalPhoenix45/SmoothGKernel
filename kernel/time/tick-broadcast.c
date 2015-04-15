@@ -65,24 +65,13 @@ static void tick_broadcast_start_periodic(struct clock_event_device *bc)
 /*
  * Check, if the device can be utilized as broadcast device:
  */
-static bool tick_check_broadcast_device(struct clock_event_device *curdev,
-					struct clock_event_device *newdev)
-{
-	if ((newdev->features & CLOCK_EVT_FEAT_DUMMY) ||
-	    (newdev->features & CLOCK_EVT_FEAT_C3STOP))
-		return false;
-
-	if (tick_broadcast_device.mode == TICKDEV_MODE_ONESHOT &&
-	    !(newdev->features & CLOCK_EVT_FEAT_ONESHOT))
-		return false;
-
-	return !curdev || newdev->rating > curdev->rating;
-}
-
-/*
- * Conditionally install/replace broadcast device
- */
 void tick_install_broadcast_device(struct clock_event_device *dev)
+<<<<<<< HEAD
+=======
+{
+<<<<<<< HEAD
+=======
+>>>>>>> parent of 73224fa... clockevents: Split out selection logic
 	struct clock_event_device *cur = tick_broadcast_device.evtdev;
 	if ((dev->features & CLOCK_EVT_FEAT_DUMMY) ||
 	    (tick_broadcast_device.evtdev &&
@@ -91,9 +80,26 @@ void tick_install_broadcast_device(struct clock_event_device *dev)
 		return 0;
 
 	clockevents_exchange_device(tick_broadcast_device.evtdev, dev);
+<<<<<<< HEAD
 		return;
 	if (!tick_check_broadcast_device(cur, dev))
 		return;
+=======
+=======
+=======
+		return;
+<<<<<<< HEAD
+>>>>>>> ee652c9... clockevents: Get rid of the notifier chain
+=======
+	if (!try_module_get(dev->owner))
+		return;
+>>>>>>> 9acd6ae... clockevents: Add module refcount
+
+	clockevents_exchange_device(tick_broadcast_device.evtdev, dev);
+	if (cur)
+		cur->event_handler = clockevents_handle_noop;
+>>>>>>> 8262cf5... v3.4.44
+>>>>>>> parent of 73224fa... clockevents: Split out selection logic
 	tick_broadcast_device.evtdev = dev;
 	if (!cpumask_empty(tick_get_broadcast_mask()))
 		tick_broadcast_start_periodic(dev);
