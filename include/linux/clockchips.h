@@ -162,6 +162,7 @@ clockevents_calc_mult_shift(struct clock_event_device *ce, u32 freq, u32 minsec)
 	return clocks_calc_mult_shift(&ce->mult, &ce->shift, NSEC_PER_SEC,
 				      freq, minsec);
 }
+<<<<<<< HEAD
 #ifdef CONFIG_GENERIC_CLOCKEVENTS_BROADCAST
 #ifdef CONFIG_ARCH_HAS_TICK_BROADCAST
 extern void tick_broadcast(const struct cpumask *mask);
@@ -183,6 +184,9 @@ extern void clockevents_resume(void);
 
 >>>>>>> 8422b78... tick: Provide a check for a forced broadcast pending
 >>>>>>> parent of 0cafa00... timekeeping: Add suspend and resume of clock event devices
+=======
+
+>>>>>>> parent of 5ff8fd2... tick: Provide a check for a forced broadcast pending
 #ifdef CONFIG_GENERIC_CLOCKEVENTS
 extern void clockevents_notify(unsigned long reason, void *arg);
 #else
