@@ -109,6 +109,7 @@ config CPU_FREQ_DEFAULT_GOV_INTERACTIVE
 	  loading your cpufreq low-level hardware driver, using the
 	  'interactive' governor for latency-sensitive workloads.
 
+<<<<<<< HEAD
 config CPU_FREQ_DEFAULT_GOV_INTELLIACTIVE
 	bool "intelliactive"
 	select CPU_FREQ_GOV_INTELLIACTIVE
@@ -171,6 +172,8 @@ config CPU_FREQ_DEFAULT_GOV_BADASS
 	  governor. If unsure have a look at the help section of the
 	  driver. Fallback governor will be the performance governor.
 
+=======
+>>>>>>> 5698886... cpufreq: clean up govs
 endchoice
 
 config CPU_FREQ_GOV_PERFORMANCE
@@ -276,6 +279,7 @@ config CPU_BOOST
 	  various events that might occur in the system. As of now, the
 	  events it reacts to are:
 	  - Migration of important threads from one CPU to another.
+<<<<<<< HEAD
 
 config CPU_FREQ_GOV_INTELLIACTIVE
 	tristate "'intelliactive' cpufreq policy governor"
@@ -347,6 +351,9 @@ config CPU_FREQ_GOV_INTELLIMM
           For details, take a look at linux/Documentation/cpu-freq.
 
           If in doubt, say N.
+=======
+  
+>>>>>>> 5698886... cpufreq: clean up govs
 
 
 endif
