@@ -18,7 +18,6 @@
 #include <linux/percpu.h>
 #include <linux/profile.h>
 #include <linux/sched.h>
-#include <linux/module.h>
 
 #include <asm/irq_regs.h>
 
@@ -257,9 +256,6 @@ void tick_check_new_device(struct clock_event_device *newdev)
 		if (curdev->rating >= newdev->rating)
 			goto out_bc;
 	}
-
-	if (!try_module_get(newdev->owner))
-		return;
 
 	/*
 	 * Replace the eventually existing device by the new
