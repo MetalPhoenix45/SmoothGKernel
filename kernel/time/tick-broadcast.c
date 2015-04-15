@@ -118,6 +118,7 @@ int tick_is_broadcast_device(struct clock_event_device *dev)
 	return (dev && tick_broadcast_device.evtdev == dev);
 }
 
+<<<<<<< HEAD
 int tick_broadcast_update_freq(struct clock_event_device *dev, u32 freq)
 {
 	int ret = -ENODEV;
@@ -147,6 +148,8 @@ static void tick_device_setup_broadcast_func(struct clock_event_device *dev)
 	}
 }
 
+=======
+>>>>>>> parent of 522f449... clockevents: Serialize calls to clockevents_update_freq() in the core
 /*
  * Check, if the device is disfunctional and a place holder, which
  * needs to be handled by the broadcast device.
@@ -221,6 +224,16 @@ static void tick_do_broadcast(struct cpumask *mask)
  */
 static void tick_do_periodic_broadcast(void)
 {
+<<<<<<< HEAD
+=======
+	raw_spin_lock(&tick_broadcast_lock);
+
+	cpumask_and(to_cpumask(tmpmask),
+		    cpu_online_mask, tick_get_broadcast_mask());
+	tick_do_broadcast(to_cpumask(tmpmask));
+
+	raw_spin_unlock(&tick_broadcast_lock);
+>>>>>>> parent of 522f449... clockevents: Serialize calls to clockevents_update_freq() in the core
 }
 
 /*
@@ -230,15 +243,13 @@ static void tick_handle_periodic_broadcast(struct clock_event_device *dev)
 {
 	ktime_t next;
 
-	raw_spin_lock(&tick_broadcast_lock);
-
 	tick_do_periodic_broadcast();
 
 	/*
 	 * The device is in periodic mode. No reprogramming necessary:
 	 */
 	if (dev->mode == CLOCK_EVT_MODE_PERIODIC)
-		goto unlock;
+		return;
 
 	/*
 	 * Setup the next period for devices, which do not have
@@ -251,11 +262,9 @@ static void tick_handle_periodic_broadcast(struct clock_event_device *dev)
 		next = ktime_add(next, tick_period);
 
 		if (!clockevents_program_event(dev, next, false))
-			goto unlock;
+			return;
 		tick_do_periodic_broadcast();
 	}
-unlock:
-	raw_spin_unlock(&tick_broadcast_lock);
 }
 
 /*
