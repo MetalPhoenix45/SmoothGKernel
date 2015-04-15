@@ -349,10 +349,4 @@ void tick_resume(void)
  * tick_init - initialize the tick control
  */
 void __init tick_init(void)
-{
-<<<<<<< HEAD
-	clockevents_register_notifier(&tick_notifier);
-=======
-	tick_broadcast_init();
->>>>>>> ee652c9... clockevents: Get rid of the notifier chain
-}
+

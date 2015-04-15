@@ -18,12 +18,8 @@
 #include <linux/percpu.h>
 #include <linux/profile.h>
 #include <linux/sched.h>
-<<<<<<< HEAD
-=======
 #include <linux/smp.h>
 #include <linux/module.h>
->>>>>>> 9acd6ae... clockevents: Add module refcount
-
 #include "tick-internal.h"
 
 /*
@@ -88,45 +84,17 @@ static bool tick_check_broadcast_device(struct clock_event_device *curdev,
  * Conditionally install/replace broadcast device
  */
 void tick_install_broadcast_device(struct clock_event_device *dev)
-{
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 	struct clock_event_device *cur = tick_broadcast_device.evtdev;
-
->>>>>>> 8262cf5... v3.4.44
 	if ((dev->features & CLOCK_EVT_FEAT_DUMMY) ||
 	    (tick_broadcast_device.evtdev &&
 	     tick_broadcast_device.evtdev->rating >= dev->rating) ||
 	     (dev->features & CLOCK_EVT_FEAT_C3STOP))
-<<<<<<< HEAD
 		return 0;
-<<<<<<< HEAD
 
 	clockevents_exchange_device(tick_broadcast_device.evtdev, dev);
-=======
-=======
 		return;
-<<<<<<< HEAD
->>>>>>> ee652c9... clockevents: Get rid of the notifier chain
-=======
-=======
-+	if (!tick_check_broadcast_device(cur, dev))
+	if (!tick_check_broadcast_device(cur, dev))
 		return;
-
->>>>>>> b5caf89... clockevents: Split out selection logic
-	if (!try_module_get(dev->owner))
-		return;
->>>>>>> 9acd6ae... clockevents: Add module refcount
-
-<<<<<<< HEAD
-	clockevents_exchange_device(tick_broadcast_device.evtdev, dev);
-	if (cur)
-		cur->event_handler = clockevents_handle_noop;
->>>>>>> 8262cf5... v3.4.44
-=======
-	clockevents_exchange_device(cur, dev);
->>>>>>> b5caf89... clockevents: Split out selection logic
 	tick_broadcast_device.evtdev = dev;
 	if (!cpumask_empty(tick_get_broadcast_mask()))
 		tick_broadcast_start_periodic(dev);
@@ -150,8 +118,6 @@ int tick_is_broadcast_device(struct clock_event_device *dev)
 	return (dev && tick_broadcast_device.evtdev == dev);
 }
 
-<<<<<<< HEAD
-=======
 int tick_broadcast_update_freq(struct clock_event_device *dev, u32 freq)
 {
 	int ret = -ENODEV;
@@ -181,7 +147,6 @@ static void tick_device_setup_broadcast_func(struct clock_event_device *dev)
 	}
 }
 
->>>>>>> d06a314... clockevents: Serialize calls to clockevents_update_freq() in the core
 /*
  * Check, if the device is disfunctional and a place holder, which
  * needs to be handled by the broadcast device.
@@ -256,18 +221,6 @@ static void tick_do_broadcast(struct cpumask *mask)
  */
 static void tick_do_periodic_broadcast(void)
 {
-<<<<<<< HEAD
-	raw_spin_lock(&tick_broadcast_lock);
-
-	cpumask_and(to_cpumask(tmpmask),
-		    cpu_online_mask, tick_get_broadcast_mask());
-	tick_do_broadcast(to_cpumask(tmpmask));
-
-	raw_spin_unlock(&tick_broadcast_lock);
-=======
-	cpumask_and(tmpmask, cpu_online_mask, tick_broadcast_mask);
-	tick_do_broadcast(tmpmask);
->>>>>>> d06a314... clockevents: Serialize calls to clockevents_update_freq() in the core
 }
 
 /*
@@ -569,20 +522,6 @@ again:
 			next_cpu = cpu;
 		}
 	}
-
-<<<<<<< HEAD
-=======
-	/*
-	 * Remove the current cpu from the pending mask. The event is
-	 * delivered immediately in tick_do_broadcast() !
-	 */
-	cpumask_clear_cpu(smp_processor_id(), tick_broadcast_pending_mask);
-
-	/* Take care of enforced broadcast requests */
-	cpumask_or(tmpmask, tmpmask, tick_broadcast_force_mask);
-	cpumask_clear(tick_broadcast_force_mask);
-
->>>>>>> 2db766a... tick: Cure broadcast false positive pending bit warning
 	/*
 	 * Sanity check. Catch the case where we try to broadcast to
 	 * offline cpus.
@@ -662,13 +601,6 @@ int tick_broadcast_oneshot_control(unsigned long reason)
 	struct clock_event_device *bc, *dev;
 	struct tick_device *td;
 	unsigned long flags;
-<<<<<<< HEAD
-	int cpu;
-=======
-	ktime_t now;
-	int cpu, ret = 0;
->>>>>>> 6a23db3... time: Change the return type of clockevents_notify() to integer
-
 	/*
 	 * Periodic mode does not care about the enter/exit of power
 	 * states
@@ -691,17 +623,12 @@ int tick_broadcast_oneshot_control(unsigned long reason)
 
 	raw_spin_lock_irqsave(&tick_broadcast_lock, flags);
 	if (reason == CLOCK_EVT_NOTIFY_BROADCAST_ENTER) {
-<<<<<<< HEAD
 		if (!cpumask_test_cpu(cpu, tick_get_broadcast_oneshot_mask())) {
 			cpumask_set_cpu(cpu, tick_get_broadcast_oneshot_mask());
-=======
 		if (!cpumask_test_and_set_cpu(cpu, tick_broadcast_oneshot_mask)) {
 			WARN_ON_ONCE(cpumask_test_cpu(cpu, tick_broadcast_pending_mask));
-<<<<<<< HEAD
->>>>>>> 2db766a... tick: Cure broadcast false positive pending bit warning
 			clockevents_set_mode(dev, CLOCK_EVT_MODE_SHUTDOWN);
 			if (dev->next_event.tv64 < bc->next_event.tv64)
-=======
 			broadcast_shutdown_local(bc, dev);
 			/*
 			 * We only reprogram the broadcast timer if we
@@ -713,7 +640,6 @@ int tick_broadcast_oneshot_control(unsigned long reason)
 			 */
 			if (!cpumask_test_cpu(cpu, tick_broadcast_force_mask) &&
 			    dev->next_event.tv64 < bc->next_event.tv64)
->>>>>>> 93175e8... tick: Introduce hrtimer based broadcast
 				tick_broadcast_set_event(bc, cpu, dev->next_event, 1);
 		}
 		/*
@@ -746,12 +672,6 @@ int tick_broadcast_oneshot_control(unsigned long reason)
  */
 static void tick_broadcast_clear_oneshot(int cpu)
 {
-<<<<<<< HEAD
-	cpumask_clear_cpu(cpu, tick_get_broadcast_oneshot_mask());
-=======
-	cpumask_clear_cpu(cpu, tick_broadcast_oneshot_mask);
-	cpumask_clear_cpu(cpu, tick_broadcast_pending_mask);
->>>>>>> 97ea808... tick: Clear broadcast pending bit when switching to oneshot
 }
 
 static void tick_broadcast_init_next_event(struct cpumask *mask,
@@ -847,14 +767,6 @@ void tick_shutdown_broadcast_oneshot(unsigned int *cpup)
 	 * Clear the broadcast masks for the dead cpu, but do not stop
 	 * the broadcast device!
 	 */
-<<<<<<< HEAD
-	cpumask_clear_cpu(cpu, tick_get_broadcast_oneshot_mask());
-=======
-	cpumask_clear_cpu(cpu, tick_broadcast_oneshot_mask);
-	cpumask_clear_cpu(cpu, tick_broadcast_pending_mask);
-	cpumask_clear_cpu(cpu, tick_broadcast_force_mask);
->>>>>>> ec4c661... tick: Make oneshot broadcast robust vs. CPU offlining
-
 	broadcast_move_bc(cpu);
 
 	raw_spin_unlock_irqrestore(&tick_broadcast_lock, flags);

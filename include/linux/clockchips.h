@@ -172,9 +172,6 @@ clockevents_calc_mult_shift(struct clock_event_device *ce, u32 freq, u32 minsec)
 	return clocks_calc_mult_shift(&ce->mult, &ce->shift, NSEC_PER_SEC,
 				      freq, minsec);
 }
-
-<<<<<<< HEAD
-=======
 #ifdef CONFIG_GENERIC_CLOCKEVENTS_BROADCAST
 #ifdef CONFIG_ARCH_HAS_TICK_BROADCAST
 extern void tick_broadcast(const struct cpumask *mask);
@@ -191,14 +188,8 @@ extern int tick_check_broadcast_expired(void);
 static inline int tick_check_broadcast_expired(void) { return 0; }
 static void tick_setup_hrtimer_broadcast(void) {};
 #endif
-
-<<<<<<< HEAD
->>>>>>> 8422b78... tick: Provide a check for a forced broadcast pending
-=======
 extern void clockevents_suspend(void);
 extern void clockevents_resume(void);
-
->>>>>>> 3e09f88... timekeeping: Add suspend and resume of clock event devices
 #ifdef CONFIG_GENERIC_CLOCKEVENTS
 extern int clockevents_notify(unsigned long reason, void *arg);
 #else

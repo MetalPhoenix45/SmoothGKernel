@@ -18,8 +18,6 @@ config SUSPEND_FREEZER
 
 	  Turning OFF this setting is NOT recommended! If in doubt, say Y.
 
-<<<<<<< HEAD
-=======
 config POWERSUSPEND
 	bool "Power suspend"
 	default y
@@ -33,7 +31,6 @@ config POWERSUSPEND_DEBUG
 	help
 	  Output debugging info in dmesg [POWERSUSPEND] (Yank555.lu)
 
->>>>>>> afcea2b... kernel/power/powersuspend: cumulative update to version 1.6 (faux123/Yank555.lu)
 config HIBERNATE_CALLBACKS
 	bool
 
