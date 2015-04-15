@@ -29,7 +29,13 @@ obj-$(CONFIG_CPU_FREQ_GOV_ZZMOOVE)	+= cpufreq_zzmoove.o
 obj-$(CONFIG_CPU_FREQ_GOV_SMARTMAX)     += cpufreq_smartmax.o
 obj-$(CONFIG_CPU_FREQ_GOV_YANKACTIVE)	+= cpufreq_yankactive.o
 obj-$(CONFIG_CPU_FREQ_GOV_IMPULSE)	+= cpufreq_impulse.o
+<<<<<<< HEAD
 >>>>>>> 6743bb7... cpufreq: Add awesome governors
+=======
+obj-$(CONFIG_CPU_FREQ_GOV_INTELLIDEMAND)+= cpufreq_intellidemand.o
+obj-$(CONFIG_CPU_FREQ_GOV_INTELLIACTIVE)+= cpufreq_intelliactive.o
+
+>>>>>>> b38a267... cpufreq: add intelliactive/demand govs
 
 >>>>>>> 5698886... cpufreq: clean up govs
 # CPUfreq cross-arch helpers

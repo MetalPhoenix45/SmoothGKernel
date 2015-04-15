@@ -148,6 +148,7 @@ struct cpufreq_governor cpufreq_gov_intelliactive = {
 	.owner = THIS_MODULE,
 };
 
+<<<<<<< HEAD
 static inline cputime64_t get_cpu_idle_time_jiffy(unsigned int cpu,
 						  cputime64_t *wall)
 {
@@ -184,6 +185,8 @@ static inline cputime64_t get_cpu_idle_time(unsigned int cpu,
 	return idle_time;
 }
 
+=======
+>>>>>>> b38a267... cpufreq: add intelliactive/demand govs
 static void cpufreq_interactive_timer_resched(
 	struct cpufreq_interactive_cpuinfo *pcpu)
 {
@@ -193,7 +196,11 @@ static void cpufreq_interactive_timer_resched(
 	spin_lock_irqsave(&pcpu->load_lock, flags);
 	pcpu->time_in_idle =
 		get_cpu_idle_time(smp_processor_id(),
+<<<<<<< HEAD
 				     &pcpu->time_in_idle_timestamp);
+=======
+				     &pcpu->time_in_idle_timestamp, io_is_busy);
+>>>>>>> b38a267... cpufreq: add intelliactive/demand govs
 	pcpu->cputime_speedadj = 0;
 	pcpu->cputime_speedadj_timestamp = pcpu->time_in_idle_timestamp;
 	expires = jiffies + usecs_to_jiffies(timer_rate);
@@ -230,7 +237,11 @@ static void cpufreq_interactive_timer_start(int cpu)
 
 	spin_lock_irqsave(&pcpu->load_lock, flags);
 	pcpu->time_in_idle =
+<<<<<<< HEAD
 		get_cpu_idle_time(cpu, &pcpu->time_in_idle_timestamp);
+=======
+		get_cpu_idle_time(cpu, &pcpu->time_in_idle_timestamp, io_is_busy);
+>>>>>>> b38a267... cpufreq: add intelliactive/demand govs
 	pcpu->cputime_speedadj = 0;
 	pcpu->cputime_speedadj_timestamp = pcpu->time_in_idle_timestamp;
 	spin_unlock_irqrestore(&pcpu->load_lock, flags);
@@ -371,7 +382,11 @@ static u64 update_load(int cpu)
 	unsigned int delta_time;
 	u64 active_time;
 
+<<<<<<< HEAD
 	now_idle = get_cpu_idle_time(cpu, &now);
+=======
+	now_idle = get_cpu_idle_time(cpu, &now, io_is_busy);
+>>>>>>> b38a267... cpufreq: add intelliactive/demand govs
 	delta_idle = (unsigned int)(now_idle - pcpu->time_in_idle);
 	delta_time = (unsigned int)(now - pcpu->time_in_idle_timestamp);
 
@@ -865,7 +880,12 @@ static ssize_t show_target_loads(
 		ret += sprintf(buf + ret, "%u%s", target_loads[i],
 			       i & 0x1 ? ":" : " ");
 
+<<<<<<< HEAD
 	ret += sprintf(buf + --ret, "\n");
+=======
+	--ret;
+	ret += sprintf(buf + ret, "\n");
+>>>>>>> b38a267... cpufreq: add intelliactive/demand govs
 	spin_unlock_irqrestore(&target_loads_lock, flags);
 	return ret;
 }
@@ -908,7 +928,12 @@ static ssize_t show_above_hispeed_delay(
 		ret += sprintf(buf + ret, "%u%s", above_hispeed_delay[i],
 			       i & 0x1 ? ":" : " ");
 
+<<<<<<< HEAD
 	ret += sprintf(buf + --ret, "\n");
+=======
+	--ret;
+	ret += sprintf(buf + ret, "\n");
+>>>>>>> b38a267... cpufreq: add intelliactive/demand govs
 	spin_unlock_irqrestore(&above_hispeed_delay_lock, flags);
 	return ret;
 }
@@ -1401,10 +1426,13 @@ static int cpufreq_governor_intelliactive(struct cpufreq_policy *policy,
 			return 0;
 		}
 
+<<<<<<< HEAD
 		if (!policy->cpu)
 			rc = input_register_handler
 				(&interactive_input_handler);
 
+=======
+>>>>>>> b38a267... cpufreq: add intelliactive/demand govs
 		rc = sysfs_create_group(cpufreq_global_kobject,
 				&interactive_attr_group);
 		if (rc) {
@@ -1431,8 +1459,11 @@ static int cpufreq_governor_intelliactive(struct cpufreq_policy *policy,
 		}
 
 		if (--active_count > 0) {
+<<<<<<< HEAD
 			if (!policy->cpu)
 				input_unregister_handler(&interactive_input_handler);
+=======
+>>>>>>> b38a267... cpufreq: add intelliactive/demand govs
 			mutex_unlock(&gov_lock);
 			return 0;
 		}
@@ -1491,7 +1522,11 @@ static void cpufreq_interactive_nop_timer(unsigned long data)
 
 static int __init cpufreq_intelliactive_init(void)
 {
+<<<<<<< HEAD
 	unsigned int i;
+=======
+	unsigned int i, rc;
+>>>>>>> b38a267... cpufreq: add intelliactive/demand govs
 	struct cpufreq_interactive_cpuinfo *pcpu;
 	struct sched_param param = { .sched_priority = MAX_RT_PRIO-1 };
 
@@ -1505,6 +1540,11 @@ static int __init cpufreq_intelliactive_init(void)
 		pcpu->cpu_slack_timer.function = cpufreq_interactive_nop_timer;
 		spin_lock_init(&pcpu->load_lock);
 		init_rwsem(&pcpu->enable_sem);
+<<<<<<< HEAD
+=======
+		if (!i)
+			rc = input_register_handler(&interactive_input_handler);
+>>>>>>> b38a267... cpufreq: add intelliactive/demand govs
 	}
 
 	spin_lock_init(&target_loads_lock);
@@ -1534,7 +1574,17 @@ module_init(cpufreq_intelliactive_init);
 
 static void __exit cpufreq_interactive_exit(void)
 {
+<<<<<<< HEAD
 	cpufreq_unregister_governor(&cpufreq_gov_intelliactive);
+=======
+	unsigned int cpu;
+
+	cpufreq_unregister_governor(&cpufreq_gov_intelliactive);
+	for_each_possible_cpu(cpu) {
+		if(!cpu)
+			input_unregister_handler(&interactive_input_handler);
+	}
+>>>>>>> b38a267... cpufreq: add intelliactive/demand govs
 	kthread_stop(speedchange_task);
 	put_task_struct(speedchange_task);
 }
