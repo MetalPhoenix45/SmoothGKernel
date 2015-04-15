@@ -555,42 +555,6 @@ again:
 	raw_spin_unlock(&tick_broadcast_lock);
 }
 
-static int broadcast_needs_cpu(struct clock_event_device *bc, int cpu)
-{
-	if (!(bc->features & CLOCK_EVT_FEAT_HRTIMER))
-		return 0;
-	if (bc->next_event.tv64 == KTIME_MAX)
-		return 0;
-	return bc->bound_on == cpu ? -EBUSY : 0;
-}
-
-static void broadcast_shutdown_local(struct clock_event_device *bc,
-				     struct clock_event_device *dev)
-{
-	/*
-	 * For hrtimer based broadcasting we cannot shutdown the cpu
-	 * local device if our own event is the first one to expire or
-	 * if we own the broadcast timer.
-	 */
-	if (bc->features & CLOCK_EVT_FEAT_HRTIMER) {
-		if (broadcast_needs_cpu(bc, smp_processor_id()))
-			return;
-		if (dev->next_event.tv64 < bc->next_event.tv64)
-			return;
-	}
-	clockevents_set_mode(dev, CLOCK_EVT_MODE_SHUTDOWN);
-}
-
-static void broadcast_move_bc(int deadcpu)
-{
-	struct clock_event_device *bc = tick_broadcast_device.evtdev;
-
-	if (!bc || !broadcast_needs_cpu(bc, deadcpu))
-		return;
-	/* This moves the broadcast assignment to this cpu */
-	clockevents_program_event(bc, bc->next_event, 1);
-}
-
 /*
  * Powerstate information: The system enters/leaves a state, where
  * affected devices might stop
@@ -606,7 +570,7 @@ int tick_broadcast_oneshot_control(unsigned long reason)
 	 * states
 	 */
 	if (tick_broadcast_device.mode == TICKDEV_MODE_PERIODIC)
-		return 0;
+		return;
 
 	/*
 	 * We are called with preemtion disabled from the depth of the
@@ -617,7 +581,7 @@ int tick_broadcast_oneshot_control(unsigned long reason)
 	dev = td->evtdev;
 
 	if (!(dev->features & CLOCK_EVT_FEAT_C3STOP))
-		return 0;
+		return;
 
 	bc = tick_broadcast_device.evtdev;
 
@@ -627,6 +591,7 @@ int tick_broadcast_oneshot_control(unsigned long reason)
 			cpumask_set_cpu(cpu, tick_get_broadcast_oneshot_mask());
 		if (!cpumask_test_and_set_cpu(cpu, tick_broadcast_oneshot_mask)) {
 			WARN_ON_ONCE(cpumask_test_cpu(cpu, tick_broadcast_pending_mask));
+<<<<<<< HEAD
 			clockevents_set_mode(dev, CLOCK_EVT_MODE_SHUTDOWN);
 			if (dev->next_event.tv64 < bc->next_event.tv64)
 			broadcast_shutdown_local(bc, dev);
@@ -640,18 +605,13 @@ int tick_broadcast_oneshot_control(unsigned long reason)
 			 */
 			if (!cpumask_test_cpu(cpu, tick_broadcast_force_mask) &&
 			    dev->next_event.tv64 < bc->next_event.tv64)
+=======
+>>>>>>> 2db766a... tick: Cure broadcast false positive pending bit warning
+			clockevents_set_mode(dev, CLOCK_EVT_MODE_SHUTDOWN);
+			if (dev->next_event.tv64 < bc->next_event.tv64)
+>>>>>>> parent of 481cfcb... tick: Introduce hrtimer based broadcast
 				tick_broadcast_set_event(bc, cpu, dev->next_event, 1);
 		}
-		/*
-		 * If the current CPU owns the hrtimer broadcast
-		 * mechanism, it cannot go deep idle and we remove the
-		 * CPU from the broadcast mask. We don't have to go
-		 * through the EXIT path as the local timer is not
-		 * shutdown.
-		 */
-		ret = broadcast_needs_cpu(bc, cpu);
-		if (ret)
-			cpumask_clear_cpu(cpu, tick_broadcast_oneshot_mask);
 	} else {
 		if (cpumask_test_cpu(cpu, tick_get_broadcast_oneshot_mask())) {
 			cpumask_clear_cpu(cpu,
@@ -767,7 +727,17 @@ void tick_shutdown_broadcast_oneshot(unsigned int *cpup)
 	 * Clear the broadcast masks for the dead cpu, but do not stop
 	 * the broadcast device!
 	 */
+<<<<<<< HEAD
 	broadcast_move_bc(cpu);
+=======
+<<<<<<< HEAD
+	cpumask_clear_cpu(cpu, tick_get_broadcast_oneshot_mask());
+=======
+	cpumask_clear_cpu(cpu, tick_broadcast_oneshot_mask);
+	cpumask_clear_cpu(cpu, tick_broadcast_pending_mask);
+	cpumask_clear_cpu(cpu, tick_broadcast_force_mask);
+>>>>>>> ec4c661... tick: Make oneshot broadcast robust vs. CPU offlining
+>>>>>>> parent of 481cfcb... tick: Introduce hrtimer based broadcast
 
 	raw_spin_unlock_irqrestore(&tick_broadcast_lock, flags);
 }
