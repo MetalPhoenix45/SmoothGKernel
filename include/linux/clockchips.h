@@ -111,8 +111,6 @@ struct clock_event_device {
 	void			(*broadcast)(const struct cpumask *mask);
 	void			(*set_mode)(enum clock_event_mode mode,
 					    struct clock_event_device *);
-	void			(*suspend)(struct clock_event_device *);
-	void			(*resume)(struct clock_event_device *);
 	unsigned long		min_delta_ticks;
 	unsigned long		max_delta_ticks;
 
@@ -188,8 +186,13 @@ extern int tick_check_broadcast_expired(void);
 static inline int tick_check_broadcast_expired(void) { return 0; }
 static void tick_setup_hrtimer_broadcast(void) {};
 #endif
+<<<<<<< HEAD
 extern void clockevents_suspend(void);
 extern void clockevents_resume(void);
+=======
+
+>>>>>>> 8422b78... tick: Provide a check for a forced broadcast pending
+>>>>>>> parent of 0cafa00... timekeeping: Add suspend and resume of clock event devices
 #ifdef CONFIG_GENERIC_CLOCKEVENTS
 extern int clockevents_notify(unsigned long reason, void *arg);
 #else
@@ -200,8 +203,6 @@ static inline int clockevents_notify(unsigned long reason, void *arg) { return 0
 
 static inline int clockevents_notify(unsigned long reason, void *arg) { return 0; }
 static inline void tick_setup_hrtimer_broadcast(void) {};
-static inline void clockevents_suspend(void) {}
-static inline void clockevents_resume(void) {}
 
 #endif
 
