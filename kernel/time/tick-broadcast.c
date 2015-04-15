@@ -555,13 +555,17 @@ again:
 /*
  * Powerstate information: The system enters/leaves a state, where
  * affected devices might stop
- * Returns 0 on success, -EBUSY if the cpu is used to broadcast wakeups.
  */
-int tick_broadcast_oneshot_control(unsigned long reason)
+void tick_broadcast_oneshot_control(unsigned long reason)
 {
 	struct clock_event_device *bc, *dev;
 	struct tick_device *td;
 	unsigned long flags;
+<<<<<<< HEAD
+=======
+	int cpu;
+
+>>>>>>> parent of 5f2dc5f... time: Change the return type of clockevents_notify() to integer
 	/*
 	 * Periodic mode does not care about the enter/exit of power
 	 * states
@@ -622,7 +626,6 @@ int tick_broadcast_oneshot_control(unsigned long reason)
 		}
 	}
 	raw_spin_unlock_irqrestore(&tick_broadcast_lock, flags);
-	return ret;
 }
 
 /*

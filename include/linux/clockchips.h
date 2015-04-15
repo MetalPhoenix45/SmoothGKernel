@@ -184,14 +184,14 @@ extern void clockevents_resume(void);
 >>>>>>> 8422b78... tick: Provide a check for a forced broadcast pending
 >>>>>>> parent of 0cafa00... timekeeping: Add suspend and resume of clock event devices
 #ifdef CONFIG_GENERIC_CLOCKEVENTS
-extern int clockevents_notify(unsigned long reason, void *arg);
+extern void clockevents_notify(unsigned long reason, void *arg);
 #else
-static inline int clockevents_notify(unsigned long reason, void *arg) { return 0; }
+# define clockevents_notify(reason, arg) do { } while (0)
 #endif
 
 #else /* CONFIG_GENERIC_CLOCKEVENTS_BUILD */
 
-static inline int clockevents_notify(unsigned long reason, void *arg) { return 0; }
+#define clockevents_notify(reason, arg) do { } while (0)
 
 #endif
 
