@@ -114,7 +114,19 @@ static int boostpulse_duration_val = DEFAULT_MIN_SAMPLE_TIME;
 /* End time of boost pulse in ktime converted to usecs */
 static u64 boostpulse_endtime;
 
+<<<<<<< HEAD
 static bool boosted;
+=======
+/*
+ * Making sure cpufreq stays low when it needs to stay low
+ */
+#define DOWN_LOW_LOAD_THRESHOLD 10
+
+/*
+ * Default thread migration boost cpufreq
+ */
+#define CPU_SYNC_FREQ 1094000
+>>>>>>> parent of c5a26a2... cpufreq: interactive: change defaults for tunables
 
 /*
  * Max additional time to wait in idle, beyond timer_rate, at speeds above
@@ -138,6 +150,7 @@ static unsigned int up_threshold_any_cpu_freq;
 static int cpufreq_governor_interactive(struct cpufreq_policy *policy,
 		unsigned int event);
 
+<<<<<<< HEAD
 #ifndef CONFIG_CPU_FREQ_DEFAULT_GOV_INTERACTIVE
 static
 #endif
@@ -147,6 +160,9 @@ struct cpufreq_governor cpufreq_gov_interactive = {
 	.max_transition_latency = 10000000,
 	.owner = THIS_MODULE,
 };
+=======
+static bool io_is_busy;
+>>>>>>> parent of c5a26a2... cpufreq: interactive: change defaults for tunables
 
 static inline cputime64_t get_cpu_idle_time_jiffy(unsigned int cpu,
 						  cputime64_t *wall)
