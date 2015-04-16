@@ -2,13 +2,10 @@
    BlueZ - Bluetooth protocol stack for Linux
    Copyright (c) 2000-2001, The Linux Foundation. All rights reserved.
    Copyright (c) 2010-2013, The Linux Foundation. All rights reserved.
-
    Written 2000,2001 by Maxim Krasnyansky <maxk@qualcomm.com>
-
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License version 2 as
    published by the Free Software Foundation;
-
    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
    OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF THIRD PARTY RIGHTS.
@@ -17,7 +14,6 @@
    WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
    ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-
    ALL LIABILITY, INCLUDING LIABILITY FOR INFRINGEMENT OF ANY PATENTS,
    COPYRIGHTS, TRADEMARKS OR OTHER RIGHTS, RELATING TO USE OF THIS
    SOFTWARE IS DISCLAIMED.
@@ -427,12 +423,7 @@ void hci_le_start_enc(struct hci_conn *conn, __le16 ediv, __u8 rand[8],
 }
 EXPORT_SYMBOL(hci_le_start_enc);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 void hci_le_ltk_reply(struct hci_conn *conn, u8 ltk[16])
-=======
-void hci_le_ltk_reply(struct hci_conn *conn, __u8 ltk[16])
->>>>>>> 7c6c1d7... Linaro 4.8 fixes
 {
 	struct hci_dev *hdev = conn->hdev;
 	struct hci_cp_le_ltk_reply cp;
@@ -448,8 +439,6 @@ void hci_le_ltk_reply(struct hci_conn *conn, __u8 ltk[16])
 }
 EXPORT_SYMBOL(hci_le_ltk_reply);
 
-=======
->>>>>>> d25981b... v3.4.98
 void hci_le_ltk_neg_reply(struct hci_conn *conn)
 {
 	struct hci_dev *hdev = conn->hdev;

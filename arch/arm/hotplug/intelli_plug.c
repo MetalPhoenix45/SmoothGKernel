@@ -52,7 +52,7 @@ static struct delayed_work intelli_plug_boost;
 static struct workqueue_struct *intelliplug_wq;
 static struct workqueue_struct *intelliplug_boost_wq;
 
-static unsigned int intelli_plug_active = 1;
+static unsigned int intelli_plug_active = 0;
 module_param(intelli_plug_active, uint, 0664);
 
 static unsigned int touch_boost_active = 1;
@@ -278,7 +278,7 @@ static void __ref intelli_plug_work_fn(struct work_struct *work)
 			case 1:
 				if (persist_count == 0) {
 					//take down everyone
-					unplug_cpu(1);
+					unplug_cpu(0);
 				}
 #ifdef DEBUG_INTELLI_PLUG
 				pr_info("case 1: %u\n", persist_count);
