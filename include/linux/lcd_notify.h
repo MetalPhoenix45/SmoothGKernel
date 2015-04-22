@@ -34,8 +34,4 @@ static int inline lcd_notifier_call_chain(unsigned long val, void *v)
 	return -ENOENT;
 }
 #endif
-<<<<<<< HEAD
 #endif /* _LINUX_LCD_NOTIFY_H */
-=======
-#endif /* _LINUX_LCD_NOTIFY_H */
->>>>>>> ca8bfa3... msm: mdss: Adding lcd notifier
